@@ -1,10 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { Hero } from './hero';
+import { HeroService } from './hero.service';
 
 @Component({
+  moduleId: module.id.toString(),
   selector: 'app-dashboard',
-  template: `
-    <h3>My Dashboard</h3>
-  `
+  templateUrl: './dashboard.component.html',
 })
+export class DashboardComponent {
+  heroes: Hero[] = [];
 
-export class DashboardComponent {}
+  // dependency injection (of the service)
+  constructor(private heroService: HeroService) {
+    // don't do anything
+  }
+
+  ngOnInit(): void {
+    this.heroService.getHeroes()
+      .then((data) => this.heroes = data.slice(1,5));
+  }
+}
