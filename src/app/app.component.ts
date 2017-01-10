@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
   }
 
   getHeroes(): void {
-    this.heroService.getHeroes()
+    this.heroService.getHeroesSlowly()
       .then((data) => this.heroes = data);
   }
 
