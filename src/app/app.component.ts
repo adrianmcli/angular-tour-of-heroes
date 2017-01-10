@@ -25,6 +25,10 @@ export class AppComponent {
     name: 'Megaman',
   };
   heroes = HEROES;
+
+  onSelect(hero) {
+    console.log(hero);
+  }
 }
 
 export class Hero {
