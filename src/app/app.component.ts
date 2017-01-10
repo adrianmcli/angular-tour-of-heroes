@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { HeroDetailComponent } from './hero-detail/hero-detail.component';
+import { Hero } from './hero';
 
 const HEROES: Hero[] = [
   { id: 11, name: 'Mr. Nice' },
@@ -15,7 +17,21 @@ const HEROES: Hero[] = [
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: `
+    <h1>{{title}}</h1>
+    <h2>My Heroes</h2>
+    <ul class="heroes">
+      <li
+        *ngFor="let hero of heroes"
+        (click)="onSelect(hero)"
+        [class.selected]="hero === selectedHero"
+        >
+        <span class="badge">{{hero.id}}</span>
+        {{hero.name}}
+      </li>
+    </ul>
+    <app-hero-detail [hero]="selectedHero"></app-hero-detail>
+  `,
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
@@ -27,9 +43,4 @@ export class AppComponent {
     // set selected hero
     this.selectedHero = hero;
   }
-}
-
-export class Hero {
-  id: number;
-  name: string;
 }
