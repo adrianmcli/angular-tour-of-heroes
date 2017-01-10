@@ -33,7 +33,8 @@ export class AppComponent implements OnInit {
   }
 
   getHeroes(): void {
-    this.heroes = this.heroService.getHeroes();
+    this.heroService.getHeroes()
+      .then((data) => this.heroes = data);
   }
 
   // by calling private heroService: HeroService,
@@ -41,7 +42,7 @@ export class AppComponent implements OnInit {
   // 1. defines a private heroService property
   // 2. identifies this property as the HeroService injection point
   constructor(private heroService: HeroService) {
-    // we choose not to call getHores() here because it is
+    // we choose not to call getHeroes() here because it is
     // bad to make the constructor too complex
   }
 
