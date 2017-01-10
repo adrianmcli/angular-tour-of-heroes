@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { Hero } from './hero';
 import { HeroService } from './hero.service';
@@ -22,7 +22,7 @@ import { HeroService } from './hero.service';
   `,
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Tour of Heroes!';
   selectedHero: Hero;
   heroes: Hero[];
@@ -32,14 +32,21 @@ export class AppComponent {
     this.selectedHero = hero;
   }
 
+  getHeroes(): void {
+    this.heroes = this.heroService.getHeroes();
+  }
+
   // by calling private heroService: HeroService,
   // this automatically does 2 things:
   // 1. defines a private heroService property
   // 2. identifies this property as the HeroService injection point
   constructor(private heroService: HeroService) {
-    // now that this.heroService has been initialized
-    // from the param, we can simply call its method
-    // to get the data we want
-    this.heroes = this.heroService.getHeroes();
+    // we choose not to call getHores() here because it is
+    // bad to make the constructor too complex
+  }
+
+  // life cycle hook for when component is initialized
+  ngOnInit(): void {
+    this.getHeroes();
   }
 }
