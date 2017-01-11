@@ -7,6 +7,7 @@ import { HeroService } from './hero.service';
   moduleId: module.id.toString(),
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
   heroes: Hero[] = [];

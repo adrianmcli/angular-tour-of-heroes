@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 import { Hero } from './hero';
 import { HeroService } from './hero.service';
@@ -17,12 +18,14 @@ import { HeroService } from './hero.service';
         {{hero.name}}
       </li>
     </ul>
-    <app-hero-detail [hero]="selectedHero"></app-hero-detail>
+    <div *ngIf="selectedHero">
+      <h2>{{selectedHero.name | uppercase}} is my hero</h2>
+      <button (click)="gotoDetail()">View Details</button>
+    </div>
   `,
   styleUrls: ['./heroes.component.css']
 })
 export class HeroesComponent implements OnInit {
-  title = 'Tour of Heroes!';
   selectedHero: Hero;
   heroes: Hero[];
 
@@ -36,11 +39,18 @@ export class HeroesComponent implements OnInit {
       .then((data) => this.heroes = data);
   }
 
+  gotoDetail(): void {
+    this.router.navigate(['/detail', this.selectedHero.id]);
+  }
+
   // by calling private heroService: HeroService,
   // this automatically does 2 things:
   // 1. defines a private heroService property
   // 2. identifies this property as the HeroService injection point
-  constructor(private heroService: HeroService) {
+  constructor(
+    private heroService: HeroService,
+    private router: Router,
+  ) {
     // we choose not to call getHeroes() here because it is
     // bad to make the constructor too complex
   }
