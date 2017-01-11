@@ -25,6 +25,10 @@ const Routing = RouterModule.forRoot([
     path: 'dashboard',
     component: DashboardComponent,
   },
+  {
+    path: 'detail/:id',
+    component: HeroDetailComponent,
+  },
 ]);
 
 @NgModule({
