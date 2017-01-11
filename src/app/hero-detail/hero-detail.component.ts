@@ -8,6 +8,7 @@ import { HeroService } from '../hero.service';
 import { Hero } from '../hero';
 
 @Component({
+  moduleId: module.id.toString(),
   selector: 'app-hero-detail',
   template: `
     <div *ngIf="hero">
@@ -20,6 +21,7 @@ import { Hero } from '../hero';
         <label>name: </label>
         <input [(ngModel)]="hero.name" placeholder="name" />
       </div>
+      <button (click)="goBack()">Back</button>
     </div>
   `,
   styles: []
@@ -35,6 +37,10 @@ export class HeroDetailComponent implements OnInit {
     private location: Location
   ) {
     // nothing inside constructor
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   ngOnInit(): void {
