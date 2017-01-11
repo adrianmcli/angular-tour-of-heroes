@@ -45,12 +45,28 @@ export class HeroService {
     // )
   }
 
+  create(name: string): Promise<Hero> {
+    return this.http
+      .post(this.heroesUrl, JSON.stringify({ name }), {headers: this.headers})
+      .toPromise()
+      .then(res => res.json().data)
+      .catch(this.handleError);
+  }
+
   update(hero: Hero): Promise<Hero> {
     const url = `${this.heroesUrl}/${hero.id}`;
     return this.http
       .put(url, JSON.stringify(hero), {headers: this.headers})
       .toPromise()
       .then(() => hero)
+      .catch(this.handleError);
+  }
+
+  delete(hero: Hero): Promise<Hero> {
+    const url = `${this.heroesUrl}/${hero.id}`;
+    return this.http.delete(url, { headers: this.headers })
+      .toPromise()
+      .then(() => null)
       .catch(this.handleError);
   }
 
