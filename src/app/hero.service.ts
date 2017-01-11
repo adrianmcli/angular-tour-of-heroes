@@ -9,6 +9,8 @@ import { HEROES } from './mock-heroes';
 @Injectable()
 export class HeroService {
 
+  private headers = new Headers({'Content-Type': 'application/json'});
+
   private heroesUrl = 'api/heroes';  // url to web api
 
   getHeroes(): Promise<Hero[]> {
@@ -41,6 +43,15 @@ export class HeroService {
     // return this.getHeroes().then(
     //   heroes => heroes.find(hero => hero.id === id)
     // )
+  }
+
+  update(hero: Hero): Promise<Hero> {
+    const url = `${this.heroesUrl}/${hero.id}`;
+    return this.http
+      .put(url, JSON.stringify(hero), {headers: this.headers})
+      .toPromise()
+      .then(() => hero)
+      .catch(this.handleError);
   }
 
   constructor(private http: Http) { }
